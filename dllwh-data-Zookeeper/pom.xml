@@ -11,4 +11,12 @@
 	<artifactId>dllwh-data-Zookeeper</artifactId>
 	<name>dllwh-data-Zookeeper</name>
 	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.zookeeper</groupId>
+			<artifactId>zookeeper</artifactId>
+			<version>3.4.14</version>
+		</dependency>
+	</dependencies>
 </project>

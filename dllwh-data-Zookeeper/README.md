@@ -1,7 +1,8 @@
-
 # Zookeeper 概述
 
 &emsp;&emsp;ZooKeeper是一种分布式协调服务，用于管理大型主机。在分布式环境中协调和管理服务是一个复杂的过程。ZooKeeper通过其简单的架构和API解决了这个问题。ZooKeeper允许开发人员专注于核心应用程序逻辑，而不必担心应用程序的分布式特性。
+
+[Zookeeper](./Zookeeper.md)
 
 # 访问会话
 
@@ -13,13 +14,13 @@
 ZooKeeper(String connectString，int sessionTimeout，Watcher watcher)
 
 ZooKeeper(String connectString，int sessionTimeout，Watcher watcher，
-        boolean canBeReadOnly)
+		boolean canBeReadOnly)
 
 ZooKeeper(String connectString，int sessionTimeout，Watcher watcher，
-        long sessionId，byte[] sessionPasswd)
+		long sessionId，byte[] sessionPasswd)
 
 ZooKeeper(String connectString，int sessionTimeout，Watcher watcher，
-        long sessionId，byte[] sessionPasswd，boolean canBeReadOnly)
+		long sessionId，byte[] sessionPasswd，boolean canBeReadOnly)
 ```
 
 ## 结束会话
@@ -40,14 +41,14 @@ public void close()
 
 ```
 public String create(String path，byte[] data，Listacl，CreateMode createMode) 
-        throws KeeperException，InterruptedException
+		throws KeeperException，InterruptedException
 ```
 
 异步创建节点
 
 ```
 public void create(String path，byte[] data，Listacl，CreateMode createMode，
-        AsyncCallback.StringCallback cb，Object ctx)
+		AsyncCallback.StringCallback cb，Object ctx)
 ```
 
 ## 监听节点
@@ -84,16 +85,16 @@ public void delete(String path，int version，AsyncCallback.VoidCallback cb，O
 
 ```
 public List getChildren(String path，boolean watch) 
-        throws KeeperException，InterruptedException
+		throws KeeperException，InterruptedException
 
 public List getChildren(String path，boolean watch，Stat stat) 
-        throws KeeperException，InterruptedException
+		throws KeeperException，InterruptedException
 
 public List getChildren(String path，Watcher watcher) 
-        throws KeeperException，InterruptedException
+		throws KeeperException，InterruptedException
 
 public List getChildren(String path，Watcher watcher，Stat stat) 
-        throws KeeperException，InterruptedException
+		throws KeeperException，InterruptedException
 ```
 
 异步获得子节点也有四种方式，其区别同样在于设置观察者和获得执行状态的不同
