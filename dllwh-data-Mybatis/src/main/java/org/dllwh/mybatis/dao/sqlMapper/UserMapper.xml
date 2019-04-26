@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.dllwh.mybatis.dao.UserDao">
+
+	<!-- 这里仅仅显示使用，切记尽量不要select * 做全表字段查询 -->
+	<select id="getAllUser" resultType="org.dllwh.mybatis.model.User">
+		SELECT * FROM sys_upms_user
+	</select>
+</mapper>

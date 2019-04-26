@@ -11,4 +11,19 @@
 	<artifactId>dllwh-data-Mybatis</artifactId>
 	<name>dllwh-data-Mybatis</name>
 	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+			<version>3.4.6</version>
+		</dependency>
+
+		<!-- java连接数据库所需依赖 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.15</version>
+		</dependency>
+	</dependencies>
 </project>
