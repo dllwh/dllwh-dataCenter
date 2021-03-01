@@ -15,7 +15,7 @@ import com.rabbitmq.client.Connection;
  *
  * Today the best performance as tomorrow newest starter!
  *
- * @类描述: TODO(这里用一句话描述这个类的作用)
+ * @类描述: 简单模式的消息生成者
  * 
  * @author: <a href="mailto:duleilewuhen@sina.com">独泪了无痕</a>
  * @创建时间: 2021-03-01 22:26:17
