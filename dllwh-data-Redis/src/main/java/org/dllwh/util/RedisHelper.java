@@ -13,6 +13,6 @@ package org.dllwh.util;
  * @since: JDK 1.8
  *
  */
-public class RedisHelper {
-
+public final class RedisHelper {
+	
 }
