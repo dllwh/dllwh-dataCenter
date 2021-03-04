@@ -1,4 +1,4 @@
-package org.dllwh.util;
+package org.dllwh.redis;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
