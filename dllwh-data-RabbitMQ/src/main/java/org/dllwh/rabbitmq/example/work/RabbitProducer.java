@@ -25,25 +25,11 @@ public final class RabbitProducer {
 		Connection conn = RabbitHelper.getConnection("");
 		// 创建消息通道
 		Channel channel = conn.createChannel();
-		// 需要发送的消息
-		String msg = "Hello, RabbitMQ";
 
-		/**
-		 * 通道绑定消息队列
-		 *
-		 * @param queue      定义的队列名称，如果队列不存在会自动创建
-		 * @param durable    队列是否持久化 true 持久化 false 不持久化
-		 *                   队列的声明默认是存放到内存中的，如果rabbitmq重启会丢失，如果想重启之后还存在就要使队列持久化
-		 * @param exclusive  是否独占队列 true 独占队列 false 不独占
-		 * @param autoDelete 当最后一个消费者断开连接之后队列是否自动被删除 true 自动删除
-		 * @param arguments  当前队列附加的参数
-		 */
 		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 
-		/**
-		 * 发布消息 参数1：交换机名称，如果直接发送信息到队列，则交换机名称为"" 参数2：目标队列名称 参数3：设置当前这条消息的属性（设置过期时间 10）
-		 * 参数4：消息的内容
-		 */
+		// 需要发送的消息
+		String msg = "Hello, RabbitMQ ";
 
 		for (int i = 0; i < 10; i++) {
 			channel.basicPublish("", QUEUE_NAME, null, (msg + i).getBytes());
