@@ -25,7 +25,15 @@ public final class RabbitCustomer {
 		Connection conn = RabbitHelper.getConnection("");
 		// 创建消息通道
 		Channel channel = conn.createChannel();
-		// 声明队列 队列名，是否持久化，是否独占模式，无消息后是否自动删除，消息携带参数
+
+		/**
+		 * 声明队列，该配置尽量与生产者一致
+		 * @param queue 用来声明通道对应的队列
+		 * @param durable 用来指定是否持久化队列
+		 * @param exclusive 用来指定是否独占队列
+		 * @param autoDelete 用来指定是否自动删除队列
+		 * @param arguments 对队列的额外配置
+		 */
 		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 		System.out.println("正在等待接收消息...");
 		// 创建消费者
@@ -52,8 +60,9 @@ public final class RabbitCustomer {
 		/**
 		 * 自动回复队列应答 -- RabbitMQ中的消息确认机制
 		 *
-		 * 参数1：String queue 队列名称 参数2：boolean autoAck 开启消息的自动确认机制 参数3：Consumer callback
-		 * 消费时回调接口
+		 * @param queue  队列名称
+		 * @param autoAck  开启消息的自动确认机制
+		 * @param callback 消费时回调接口
 		 */
 		channel.basicConsume(QUEUE_NAME, true, consumer);
 	}

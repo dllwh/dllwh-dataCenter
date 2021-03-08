@@ -3,9 +3,7 @@ package org.dllwh.rabbitmq.example.simple;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-
 import org.dllwh.rabbitmq.util.RabbitHelper;
-
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -56,8 +54,11 @@ public final class RabbitProducer {
 		channel.queueDeclare(QUEUE_NAME, false, false, false, null);
 
 		/**
-		 * 发布消息 参数1：交换机名称，如果直接发送信息到队列，则交换机名称为"" 参数2：目标队列名称 参数3：设置当前这条消息的属性（设置过期时间 10）
-		 * 参数4：消息的内容
+		 * 发布消息
+		 * @param exchange 交换机名称，如果直接发送信息到队列，则交换机名称为""
+		 * @param routingKey 目标队列名称
+		 * @param props 设置当前这条消息的属性（设置过期时间 10）
+		 * @param bod 消息的内容
 		 */
 		channel.basicPublish("", QUEUE_NAME, properties, msg.getBytes());
 
