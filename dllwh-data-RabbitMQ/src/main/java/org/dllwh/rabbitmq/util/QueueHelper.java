@@ -1,4 +1,4 @@
-package org.dllwh.rabbitmq;
+package org.dllwh.rabbitmq.util;
 
 import com.rabbitmq.client.AMQP.Queue;
 
