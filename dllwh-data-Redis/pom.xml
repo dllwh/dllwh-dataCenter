@@ -13,13 +13,40 @@
 	<url>http://maven.apache.org</url>
 	<description>Redis 教程</description>
 
+	<properties>
+		<!-- 使用UTF-8编码 -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- 使用jdk1.8版本 -->
+		<java.version>1.8</java.version>
+	</properties>
+
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
 		<dependency>
 			<groupId>org.redisson</groupId>
 			<artifactId>redisson</artifactId>
-			<version>3.13.6</version>
+			<version>3.14.1</version>
 			<optional>true</optional>
 		</dependency>
 	</dependencies>
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<!-- 插件在仓库里的group ID -->
+					<groupId>org.apache.maven.plugins</groupId>
+					<!-- 插件在仓库里的artifact ID -->
+					<artifactId>maven-compiler-plugin</artifactId>
+					<configuration>
+						<source>${java.version}</source>
+						<target>${java.version}</target>
+						<compilerVersion>${java.version}</compilerVersion>
+						<encoding>${project.build.sourceEncoding}</encoding>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
 </project>
