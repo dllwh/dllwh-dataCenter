@@ -225,4 +225,14 @@ public final class RedissonClientHelper {
     public RBinaryStream getBinaryStream(RedissonClient redissonClient, String objectName) {
         return redissonClient.getBinaryStream(objectName);
     }
+
+    /**
+     * 信号量
+     * @param redissonClient
+     * @param objectName
+     * @return
+     */
+    public RSemaphore getSemaphore(RedissonClient redissonClient, String objectName) {
+        return redissonClient.getSemaphore(objectName);
+    }
 }
