@@ -62,13 +62,12 @@ public final class RedissonClientHelper {
         Config config = new Config();
         config.setCodec(new org.redisson.client.codec.StringCodec());
         SingleServerConfig singleServerConfig = config.useSingleServer();
-        singleServerConfig.setAddress("redis://"+ip + ":" + port);
+        singleServerConfig.setAddress("redis://" + ip + ":" + port);
         if (StringUtil.isNotBlank(password)) {
             singleServerConfig.setPassword(password);
         }
-        RedissonClient redissonClient = Redisson.create(config);
         System.out.println("成功连接Redis Server" + "\t" + "连接" + ip + ":" + port + "服务器");
-        return redissonClient;
+        return getRedissonClient(config);
     }
 
     /**
@@ -227,12 +226,24 @@ public final class RedissonClientHelper {
     }
 
     /**
-     * 信号量
+     * 获取信号量
+     *
      * @param redissonClient
      * @param objectName
      * @return
      */
     public RSemaphore getSemaphore(RedissonClient redissonClient, String objectName) {
         return redissonClient.getSemaphore(objectName);
+    }
+
+    /**
+     * 获取布隆过滤器
+     *
+     * @param redissonClient
+     * @param objectName
+     * @return
+     */
+    public RBloomFilter getBloomFilter(RedissonClient redissonClient, String objectName) {
+        return redissonClient.getBloomFilter(objectName);
     }
 }
