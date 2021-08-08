@@ -1,18 +1,18 @@
 package org.dllwh.redis.redisson.test;
 
-import net.bytebuddy.TypeCache;
 import org.dllwh.redis.redisson.RedissonClientHelper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.redisson.api.*;
+import org.redisson.api.listener.MessageListener;
+import org.redisson.api.map.event.*;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -100,45 +100,34 @@ public class RedissonTest {
     @Test
     public void testGetMap() throws InterruptedException, ExecutionException {
 
-        RMap<String, Object> testGetMap = redissonClientHelper.getMap(redissonClient, "testGetMap");
+        RMap<String, Object> testGetMap = redissonClient.getMap("testGetMap");
         // 设置map中key-value
         testGetMap.put("userName", "独泪了无痕");
         testGetMap.put("email", "duleilewuhen@sina.com");
         // 设置key有效期
         testGetMap.expire(300, TimeUnit.SECONDS);
         // 通过key获取value
-        System.out.println(redissonClientHelper.getMap(redissonClient, "testGetMap").get("name"));
+        System.out.println(redissonClient.getMap("testGetMap").get("userName"));
 
-
-        RMap<String, Integer> rMap = redissonClientHelper.getMap(redissonClient, "testMap");
+        RMap<String, Integer> rMap = redissonClient.getMap("testMap");
         // 清除集合
         rMap.clear();
-        // 添加key-value 返回之前关联过的值
-        Integer firstInteger = rMap.put("111", 111);
-        System.out.println("firstInteger: " + firstInteger);
 
         // 添加key-value 返回之前关联过的值
-        Integer secondInteger = rMap.putIfAbsent("222", 222);
-        System.out.println("secondInteger: " + secondInteger);
+        System.out.println("firstInteger: " + rMap.put("111", 99999));
+
+        // 对象不存在则设置
+        System.out.println("secondInteger: " + rMap.putIfAbsent("222", 222));
 
         // 移除key-value
-        Integer thirdInteger = rMap.remove("222");
-        System.out.println("thirdInteger: " + thirdInteger);
+        System.out.println("thirdInteger: " + rMap.remove("222"));
 
         // 添加key-value 不返回之前关联过的值
-        boolean third = rMap.fastPut("333", 333);
-        System.out.println("third: " + third);
-        Future<Boolean> fiveFuture = rMap.fastPutAsync("444", 444);
-        System.out.println("fiveFuture: " + fiveFuture.isDone());
+        System.out.println("third: " + rMap.fastPut("333", 333));
+        System.out.println("fiveFuture: " + rMap.fastPutAsync("444", 444).isDone());
 
         // 异步移除key
-        Future<Long> sixFuture = rMap.fastRemoveAsync("444");
-        System.out.println("sixFuture: " + sixFuture.get());
-
-        // 遍历集合
-        for (String key : rMap.keySet()) {
-            System.out.println(key + ":" + rMap.get(key));
-        }
+        System.out.println("sixFuture: " + rMap.fastRemoveAsync("444").get());
     }
 
     /**
@@ -194,11 +183,10 @@ public class RedissonTest {
      */
     @Test
     public void testGetList() {
-        RList<Integer> rList = redissonClientHelper.getList(redissonClient, "testList");
+        RList<Integer> rList = redissonClient.getList("testList");
         // 清除集合
         rList.clear();
-        Collection<Integer> c = Arrays.asList(12, 45, 12, 34, 56, 78);
-        rList.addAll(c);
+        rList.addAll(Arrays.asList(12, 45, 12, 34, 56, 78));
         // 设置有效期
         rList.expire(300, TimeUnit.SECONDS);
 
@@ -306,7 +294,7 @@ public class RedissonTest {
 
             Thread.sleep(30000);
         } catch (Exception e) {
-
+            e.printStackTrace();
         } finally {
             // 3、解锁将设解锁代码没有运行，redisson会不会出现死锁
             System.out.println("释放锁..." + Thread.currentThread().getId());
@@ -323,7 +311,7 @@ public class RedissonTest {
      */
     @Test
     public void testGetAtomicLong() {
-        RAtomicLong rAtomicLong = redissonClientHelper.getAtomicLong(redissonClient, "testAtomicLong");
+        RAtomicLong rAtomicLong = redissonClient.getAtomicLong("testAtomicLong");
         rAtomicLong.set(100);
         System.out.println(rAtomicLong.addAndGet(200));
         System.out.println(rAtomicLong.decrementAndGet());
@@ -354,9 +342,15 @@ public class RedissonTest {
      */
     @Test
     public void testGetTopicSub() throws InterruptedException {
-        RTopic rTopic = redissonClientHelper.getTopic(redissonClient, "testTopic");
+        RTopic rTopic = redissonClient.getTopic("testTopic");
+        // 等待发布者发布消息
+        rTopic.addListener(String.class, new MessageListener<String>() {
 
-        //等待发布者发布消息
+            @Override
+            public void onMessage(CharSequence channel, String msg) {
+                System.out.println("Redisson监听器收到消息，消息主题：" + channel + "，内容：" + msg);
+            }
+        });
         RCountDownLatch rCountDownLatch = redissonClientHelper.getCountDownLatch(redissonClient, "testCountDownLatch");
         rCountDownLatch.trySetCount(1);
         rCountDownLatch.await();
@@ -367,11 +361,11 @@ public class RedissonTest {
      */
     @Test
     public void testGetTopicPub() {
-        RTopic rTopic = redissonClientHelper.getTopic(redissonClient, "testTopic");
-        System.out.println(rTopic.publish("今天是儿童节，大家儿童节快乐"));
+        RTopic rTopic = redissonClient.getTopic("testTopic");
+        // 发布消息
+        System.out.println(rTopic.publish("世间本无Bug，写的代码多了，也就有了Bug。"));
         //发送完消息后 让订阅者不再等待
-        RCountDownLatch rCountDownLatch = redissonClientHelper.getCountDownLatch(redissonClient, "testCountDownLatch");
-        rCountDownLatch.countDown();
+        redissonClient.getCountDownLatch("testCountDownLatch").countDown();
     }
 
     /**
@@ -379,7 +373,7 @@ public class RedissonTest {
      */
     @Test
     public void testGetBloomFilter() {
-        RBloomFilter seqIdBloomFilter = redissonClientHelper.getBloomFilter(redissonClient, "testGetBloomFilter");
+        RBloomFilter<Object> seqIdBloomFilter = redissonClient.getBloomFilter("testGetBloomFilter");
         // 初始化预期插入的数据量为10000000和期望误差率为0.01
         seqIdBloomFilter.tryInit(10000000, 0.01);
         // 插入部分数据
@@ -390,5 +384,104 @@ public class RedissonTest {
         System.out.println(seqIdBloomFilter.contains("123"));
         System.out.println(seqIdBloomFilter.contains("789"));
         System.out.println(seqIdBloomFilter.contains("100"));
+    }
+
+    @Test
+    public void testGetLongAdder() {
+        RLongAdder longAdder = redissonClient.getLongAdder("testGetLongAdder");
+        longAdder.add(12);
+        longAdder.increment();
+        longAdder.decrement();
+        longAdder.sum();
+    }
+
+    @Test
+    public void testGetDoubleAdder() {
+        RDoubleAdder atomicDouble = redissonClient.getDoubleAdder("testGetDoubleAdder");
+        atomicDouble.add(12);
+        atomicDouble.increment();
+        atomicDouble.decrement();
+        atomicDouble.sum();
+    }
+
+    @Test
+    public void testGetAtomicDouble() {
+        RAtomicDouble atomicDouble = redissonClient.getAtomicDouble("testGetAtomicDouble");
+        atomicDouble.set(2.81);
+        atomicDouble.addAndGet(4.11);
+        atomicDouble.get();
+    }
+
+    @Test
+    public void testGetRateLimiter() {
+        RRateLimiter rateLimiter = redissonClient.getRateLimiter("testGetRateLimiter");
+        // 最大流速 = 每1秒钟产生10个令牌
+        rateLimiter.trySetRate(RateType.OVERALL, 10, 1, RateIntervalUnit.SECONDS);
+
+        // 获取4个令牌
+        rateLimiter.tryAcquire(4);
+
+        // 尝试获取4个令牌，尝试等待时间为2秒钟
+        rateLimiter.tryAcquire(4, 2, TimeUnit.SECONDS);
+        rateLimiter.tryAcquireAsync(2, 2, TimeUnit.SECONDS);
+
+        // 尝试获取1个令牌，等待时间不限
+        rateLimiter.acquire();
+
+        // 尝试获取1个令牌，等待时间不限
+        RFuture<Void> future = rateLimiter.acquireAsync();
+    }
+
+    @Test
+    public void testGetMapListener() throws InterruptedException {
+        RMapCache<String, Object> rMapCache = redissonClient.getMapCache("testGetMapListener");
+
+        int createListener = rMapCache.addListener(new EntryCreatedListener<String, Object>() {
+            @Override
+            public void onCreated(EntryEvent<String, Object> event) {
+                System.out.println("接收创建事件并执行相关方法");
+            }
+        });
+        int updateListener = rMapCache.addListener(new EntryUpdatedListener<String, Object>() {
+            @Override
+            public void onUpdated(EntryEvent<String, Object> event) {
+                System.out.println("接收更新事件并执行相关方法");
+            }
+        });
+
+        int removeListener = rMapCache.addListener(new EntryRemovedListener<String, Object>() {
+            @Override
+            public void onRemoved(EntryEvent<String, Object> event) {
+                System.out.println("接收移除事件并执行相关方法");
+            }
+        });
+
+        int expireListener = rMapCache.addListener(new EntryExpiredListener<String, Object>() {
+            @Override
+            public void onExpired(EntryEvent<String, Object> event) {
+                System.out.println("接收过期事件并执行相关方法");
+            }
+        });
+
+        rMapCache.put("key1", "世间浮萍本无名", 10, TimeUnit.SECONDS);
+        Thread.sleep(1000 * 20);
+        rMapCache.removeListener(updateListener);
+        rMapCache.removeListener(createListener);
+        rMapCache.removeListener(expireListener);
+        rMapCache.removeListener(removeListener);
+    }
+
+    @Test
+    public void testGetMapCache() {
+        RMapCache<String, Object> rMapCache = redissonClient.getMapCache("testGetMapCache");
+        // 有效时间 ttl = 10分钟
+        rMapCache.put("key1", "世间浮萍本无名", 10, TimeUnit.MINUTES);
+        // 有效时间 ttl = 10分钟, 最长闲置时间 maxIdleTime = 10秒钟
+        rMapCache.put("key2", "游戏人间君莫问", 10, TimeUnit.MINUTES, 10, TimeUnit.SECONDS);
+
+        // 有效时间 = 3 秒钟
+        rMapCache.putIfAbsent("key3", "游子天涯沦落人", 3, TimeUnit.SECONDS);
+        // 有效时间 ttl = 40秒钟, 最长闲置时间 maxIdleTime = 10秒钟
+        rMapCache.putIfAbsent("key4", "相逢何必曾相识", 40, TimeUnit.SECONDS, 10, TimeUnit.SECONDS);
     }
 }

@@ -60,7 +60,6 @@ public final class RedissonClientHelper {
      */
     public RedissonClient getRedissonClient(String ip, String port, String password) {
         Config config = new Config();
-        config.setCodec(new org.redisson.client.codec.StringCodec());
         SingleServerConfig singleServerConfig = config.useSingleServer();
         singleServerConfig.setAddress("redis://" + ip + ":" + port);
         if (StringUtil.isNotBlank(password)) {
