@@ -35,7 +35,7 @@ public class ClientInfoModel {
 	/**
 	 * 端口
 	 */
-	private int Port;
+	private int port;
 	/**
 	 * 连接的空闲时间(单位秒)
 	 */

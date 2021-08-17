@@ -23,13 +23,13 @@ public class RedisServerModel {
 	/**
 	 * 唯一标示
 	 */
-	private String ServerId;
+	private String serverId;
 	/**
 	 * Redis地址
 	 */
-	private String ServerHost;
+	private String serverHost;
 	/**
 	 * Redis描述
 	 */
-	private String ServerDescribe;
+	private String serverDescribe;
 }

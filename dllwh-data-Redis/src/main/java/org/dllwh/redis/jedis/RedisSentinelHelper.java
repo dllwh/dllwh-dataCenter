@@ -13,5 +13,7 @@ package org.dllwh.redis.jedis;
  * @since: JDK 1.8
  */
 public final class RedisSentinelHelper {
-
+    public static void main(String[] args) {
+        
+    }
 }

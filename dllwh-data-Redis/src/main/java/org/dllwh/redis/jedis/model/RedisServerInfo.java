@@ -23,10 +23,7 @@ import org.apache.commons.lang3.StringUtils;
  * @since: JDK 1.8
  */
 public final class RedisServerInfo {
-	/** ----------------------------------------------------- Fields start */
-	private static LinkedHashMap<String, String> map = new LinkedHashMap<>();
-
-	/** ----------------------------------------------------- Fields end */
+	private final static LinkedHashMap<String, String> map = new LinkedHashMap<>();
 
 	static {
 		/**

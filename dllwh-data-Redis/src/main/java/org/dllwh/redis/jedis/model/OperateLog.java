@@ -25,7 +25,7 @@ public class OperateLog implements Serializable {
 
 	private static final long serialVersionUID = -8896238070357830105L;
 	/**
-	 * slowlog唯一编号id
+	 * 唯一编号id
 	 */
 	private long id;
 	/**

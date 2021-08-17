@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.dllwh.redis.jedis.model;
 
 import java.io.Serializable;
@@ -25,9 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 public class ClientInfo implements Serializable {
 
 	private static final long serialVersionUID = 7342065135553802833L;
-	/** ----------------------------------------------------- Fields start */
-	private static LinkedHashMap<String, String> map = new LinkedHashMap<>();
-	/** ----------------------------------------------------- Fields end */
+	private final static LinkedHashMap<String, String> map = new LinkedHashMap<>();
 	static {
 		map.put("addr", "客户端的地址和端口");
 		map.put("fd", "套接字所使用的文件描述符");

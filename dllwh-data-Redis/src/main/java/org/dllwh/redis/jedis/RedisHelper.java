@@ -16,11 +16,17 @@ import redis.clients.jedis.Jedis;
  * @since: JDK 1.8
  */
 public final class RedisHelper {
-	// redis主机的ip
+	/**
+	 * redis主机的ip
+	 */
 	private String host;
-	// redis主机的端口号
+	/**
+	 * redis主机的端口号
+	 */
 	private int port;
-	// 登录口令
+	/**
+	 * 登录口令
+	 */
 	private String password;
 
 	public RedisHelper(String host, int port) {

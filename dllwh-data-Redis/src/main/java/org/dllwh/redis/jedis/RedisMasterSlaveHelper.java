@@ -12,6 +12,6 @@ package org.dllwh.redis.jedis;
  * @版本: V 1.0.1
  * @since: JDK 1.8
  */
-public class RedisMasterSlaveHelper {
+public final class RedisMasterSlaveHelper {
 
 }
