@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: spring-data-redis-chapter
+  profiles:
+    active: test
