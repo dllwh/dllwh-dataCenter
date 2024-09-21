@@ -11,9 +11,13 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>dllwh-data-Redis</artifactId>
-	<name>dllwh-data-Redis</name>
+    <packaging>pom</packaging>
+    <name>dllwh-data-Redis</name>
 	<url>http://maven.apache.org</url>
-	<description>Redis 教程</description>
+    <modules>
+        <module>Java-Redisson-Api</module>
+    </modules>
+    <description>Redis 教程</description>
 
 	<properties>
 		<!-- 使用UTF-8编码 -->
@@ -22,64 +26,5 @@
 		<!-- 使用jdk1.8版本 -->
 		<java.version>1.8</java.version>
 	</properties>
-
-	<dependencies>
-		<!-- https://mvnrepository.com/artifact/org.redisson/redisson -->
-		<dependency>
-			<groupId>org.redisson</groupId>
-			<artifactId>redisson</artifactId>
-			<version>3.14.1</version>
-			<optional>true</optional>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
-		<dependency>
-			<groupId>redis.clients</groupId>
-			<artifactId>jedis</artifactId>
-			<version>3.6.3</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.10</version>
-		</dependency>
-	</dependencies>
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-					<configuration>
-						<excludes>
-							<exclude>
-								<groupId>org.projectlombok</groupId>
-								<artifactId>lombok</artifactId>
-							</exclude>
-						</excludes>
-					</configuration>
-				</plugin>
-				<plugin>
-					<!-- 插件在仓库里的group ID -->
-					<groupId>org.apache.maven.plugins</groupId>
-					<!-- 插件在仓库里的artifact ID -->
-					<artifactId>maven-compiler-plugin</artifactId>
-					<!-- 截止到写文章位置，该版本最新是3.8.1。可以缺省，使用默认值也可，但不建议。 -->
-					<version>3.8.1</version>
-					<configuration>
-						<!-- 源代码使用的 JDK 版本 -->
-						<source>${java.version}</source>
-						<!-- 需要生成的目标 class 文件的编译版本 -->
-						<target>${java.version}</target>
-						<!-- 字符集编码 -->
-						<encoding>${project.build.sourceEncoding}</encoding>
-						<compilerVersion>${java.version}</compilerVersion>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
 
 </project>

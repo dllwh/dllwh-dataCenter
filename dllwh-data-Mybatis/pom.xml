@@ -21,10 +21,11 @@
 		</dependency>
 
 		<!-- java连接数据库所需依赖 -->
+		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.16</version>
+			<version>8.0.33</version>
 		</dependency>
 	</dependencies>
 </project>

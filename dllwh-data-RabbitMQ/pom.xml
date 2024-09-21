@@ -9,29 +9,11 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>dllwh-data-RabbitMQ</artifactId>
-	<name>dllwh-data-RabbitMQ</name>
+    <packaging>pom</packaging>
+    <name>dllwh-data-RabbitMQ</name>
 	<url>http://maven.apache.org</url>
-	<dependencies>
-		<dependency>
-			<groupId>com.rabbitmq</groupId>
-			<artifactId>amqp-client</artifactId>
-			<version>5.7.0</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-lang3</artifactId>
-			<version>3.8.1</version>
-		</dependency>
+    <modules>
+        <module>Java-RabbitMQ-Api</module>
+    </modules>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.7.5</version>
-		</dependency>
-	</dependencies>
 </project>
