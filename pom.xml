@@ -45,6 +45,7 @@
 		<module>dllwh-data-Solr</module>
 		<module>dllwh-data-Elasticsearch</module>
 		<module>dllwh-data-ActiveMQ/Java-ActiveMQ-Api</module>
+		<module>dllwh-data-Mongodb/SpringData-MongoDB</module>
 	</modules>
 
 	<properties>

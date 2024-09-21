@@ -14,6 +14,7 @@
     <url>http://maven.apache.org</url>
     <modules>
         <module>Java-Mongodb-Api</module>
+        <module>SpringBoot3-MongoDB</module>
     </modules>
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
