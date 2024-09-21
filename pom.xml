@@ -44,6 +44,7 @@
 		<module>dllwh-data-Kafka</module>
 		<module>dllwh-data-Solr</module>
 		<module>dllwh-data-Elasticsearch</module>
+		<module>dllwh-data-ActiveMQ/Java-ActiveMQ-Api</module>
 	</modules>
 
 	<properties>

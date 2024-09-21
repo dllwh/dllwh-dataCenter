@@ -9,6 +9,10 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>dllwh-data-Kafka</artifactId>
+	<packaging>pom</packaging>
 	<name>dllwh-data-Kafka</name>
 	<url>http://maven.apache.org</url>
+	<modules>
+		<module>Java-Kafka-Api</module>
+	</modules>
 </project>

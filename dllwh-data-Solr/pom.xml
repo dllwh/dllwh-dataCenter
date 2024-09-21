@@ -9,6 +9,10 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>dllwh-data-Solr</artifactId>
-	<name>dllwh-data-Solr</name>
+    <packaging>pom</packaging>
+    <name>dllwh-data-Solr</name>
 	<url>http://maven.apache.org</url>
+    <modules>
+        <module>Java-Solr-Api</module>
+    </modules>
 </project>
