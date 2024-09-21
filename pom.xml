@@ -46,6 +46,7 @@
 		<module>dllwh-data-Elasticsearch</module>
 		<module>dllwh-data-ActiveMQ/Java-ActiveMQ-Api</module>
 		<module>dllwh-data-Mongodb/SpringData-MongoDB</module>
+		<module>dllwh-data-Elasticsearch/SpringBoot-ElasticSearch</module>
 	</modules>
 
 	<properties>
