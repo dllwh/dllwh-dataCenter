@@ -9,14 +9,11 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>dllwh-data-Zookeeper</artifactId>
+	<packaging>pom</packaging>
 	<name>dllwh-data-Zookeeper</name>
 	<url>http://maven.apache.org</url>
+	<modules>
+		<module>Java-Zookeeper-Api</module>
+	</modules>
 
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<version>3.9.2</version>
-		</dependency>
-	</dependencies>
 </project>
