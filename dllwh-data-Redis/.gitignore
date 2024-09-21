@@ -4,3 +4,4 @@
 /application-datasource/
 .classpath
 *.iml
+.DS_Store
