@@ -43,6 +43,7 @@
 		<module>dllwh-data-RabbitMQ</module>
 		<module>dllwh-data-Kafka</module>
 		<module>dllwh-data-Solr</module>
+		<module>dllwh-data-Elasticsearch</module>
 	</modules>
 
 	<properties>
