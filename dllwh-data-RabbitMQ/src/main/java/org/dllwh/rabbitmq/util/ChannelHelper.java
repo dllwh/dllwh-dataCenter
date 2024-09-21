@@ -1,4 +1,4 @@
-package org.dllwh.rabbitmq;
+package org.dllwh.rabbitmq.util;
 
 /**
  * 把今天最好的表现当作明天最新的起点．．～
